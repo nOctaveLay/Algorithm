@@ -9,6 +9,7 @@ while True:
 	for x in input_string:
 		if x in open_backet:
 			stack.append(x)
+			
 		if x in close_backet:
 			
 			if len(stack) == 0:
@@ -20,5 +21,4 @@ while True:
 			elif a == '[' and x == ')':break
 			stack.pop()
 
-	if len(stack) == 0 : print("yes")
-	else: print("no")
+	print("yes" if len(stack) == 0 else "no")
