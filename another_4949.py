@@ -6,19 +6,15 @@ while True:
 
 	if input_string == '.': break
 
-	for x in input_string:
-		if x in open_backet:
-			stack.append(x)
-			
-		if x in close_backet:
-			
-			if len(stack) == 0:
-				stack.append(x)
-				break
+	for elem in input_string:
+		if elem in open_backet: stack.append(elem)
 
-			a = stack[-1]
-			if a == '(' and x == ']' : break
-			elif a == '[' and x == ')':break
-			stack.pop()
+		if elem in close_backet:
+			if len(stack) == 0: stack.append(elem); break;
+			
+			check_open = stack[-1]
+			if check_open == '(' and elem == ']' : break
+			elif check_open == '[' and elem == ')':break
+			else: stack.pop()
 
 	print("yes" if len(stack) == 0 else "no")
