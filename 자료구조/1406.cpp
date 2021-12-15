@@ -8,11 +8,12 @@ int main(){
 
     stack<char> front_result;
     stack<char> end_result;
-    stack<char> result_stack;
     string input_string;
     int num_of_operation;
-    char operation;
-
+    
+    // operator라고 하니 오류가 났다. 이미 만들어진 명령어라서 그렇다고 한다.
+    char operation; 
+    
     cin >> input_string;
         
     // 초기 조건
