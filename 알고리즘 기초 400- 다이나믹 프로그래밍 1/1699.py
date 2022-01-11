@@ -1,5 +1,8 @@
 import math
 import sys
+'''
+주의 : pypy에서만 됨
+'''
 input = sys.stdin.readline
 n = int(input())
 num_sqrt_list = [i for i in range(n+1)]
