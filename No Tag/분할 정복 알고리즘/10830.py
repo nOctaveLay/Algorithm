@@ -1,11 +1,12 @@
 # 행렬 제곱
 from unittest import result
 
-def identity(b):
+# n의 크기를 갖는 항등 행렬을 return 한다.
+def identity(n):
     result_list = list()
-    for i in range(b):
+    for i in range(n):
         j_list = list()
-        for j in range(b):
+        for j in range(n):
             if i == j:
                 j_list.append(1)
             else:
@@ -13,15 +14,7 @@ def identity(b):
         result_list.append(j_list)
     return result_list
 
-def pow_matrix(matrix_A,b):
-    # Base Case
-    if b == 0 : return identity(len(matrix_A))
-    # Divide Case
-    if b % 2 == 1 : return multiply_matrix(matrix_A,pow_matrix(matrix_A,b-1))
-    else:
-        half_matrix = pow_matrix(matrix_A,b//2)
-        return multiply_matrix(half_matrix,half_matrix)
-
+# matrix끼리의 곱을 구해서 return해준다.
 def multiply_matrix(matrix_A,matrix_B):
     # Base Case
     if len(matrix_A[0]) != len(matrix_B):
@@ -35,6 +28,16 @@ def multiply_matrix(matrix_A,matrix_B):
                     result[i][k] += (matrix_A[i][j] * matrix_B[j][k]) % 1000
                 result[i][k] %= 1000
         return result
+
+# (matrix_A)^b을 구한다.
+def pow_matrix(matrix_A,b):
+    # Base Case
+    if b == 0 : return identity(len(matrix_A))
+    # Divide Case
+    if b % 2 == 1 : return multiply_matrix(matrix_A,pow_matrix(matrix_A,b-1))
+    else:
+        half_matrix = pow_matrix(matrix_A,b//2)
+        return multiply_matrix(half_matrix,half_matrix)
                     
 if __name__ == "__main__":
     n,b = map(int,input().split())
