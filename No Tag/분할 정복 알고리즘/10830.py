@@ -1,3 +1,4 @@
+
 # 행렬 제곱
 # n의 크기를 갖는 항등 행렬을 return 한다.
 def identity(n):
@@ -19,7 +20,9 @@ def pow_matrix(matrix,b):
         half_matrix = pow_matrix(matrix,b//2)
         return multiply_matrix_mod_1000(half_matrix,half_matrix)
                     
-if __name__ == "__main__":
+if __name__ == "__main__":    
+    import sys
+    input = sys.stdin.readline
     n,b = map(int,input().split())
     matrix_a = [list(map(int,input().split())) for _ in range(n)]
     result = pow_matrix(matrix_a,b)
