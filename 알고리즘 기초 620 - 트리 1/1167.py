@@ -3,9 +3,6 @@ sys.setrecursionlimit(100000000)
 input = sys.stdin.readline
 v = int(input())
 
-# 완전 탐색으로 하면 왜 안되지...?
-
-
 tree = [[] for _ in range(v+1)]
 
 for _ in range(v-1):
@@ -23,7 +20,6 @@ max_index = 0
 def dfs(start,tree,result):
     for i,distance in tree[start]:
         if result[i] == 0:
-            result[i] = 1
             result[i] = result[start] + distance
             dfs(i,tree,result)
 
