@@ -28,6 +28,7 @@ for _ in range(input_num):
     cnt = 0
     for x in range(1,n//2 + 1,2):
         if prime_table[x//2] and prime_table[(n - x)//2]:
-                cnt += 1
-                conjecture == 1
+            cnt += 1
+            conjecture == 1
+    if n == 4: cnt += 1
     print(cnt)
