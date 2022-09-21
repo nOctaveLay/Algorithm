@@ -2,3 +2,5 @@
 *.exe
 answer.txt
 test*.py
+input*.txt
+output*.txt
