@@ -9,7 +9,7 @@ def dfs(energy):
         return
     for i in range(1,len(w)-1): # 공평하게 기회를 주기
         elem = w[i]
-        del w[i]
+        del w[i] #remove로 지우면 안된다. remove는 첫번째 원소를 지우는 것이기 때문...
         dfs(energy + w[i-1] * w[i])
         w.insert(i,elem)
 
