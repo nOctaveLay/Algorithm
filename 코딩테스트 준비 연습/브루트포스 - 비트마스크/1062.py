@@ -23,6 +23,7 @@ def dfs(idx, cnt):
             if check: word_cnt += 1
         result = max(result, word_cnt)
         return
+
     for i in range(idx,26):
         if not visited & (1 << i):
             visited |= 1 << i
