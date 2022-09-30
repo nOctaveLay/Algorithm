@@ -12,7 +12,7 @@ def return_num_of_cases_of_sum():
             s += 1
         elif prefix_sum > m:
             s += 1
-        elif s < n and e == n:
+        elif e == n:
             s += 1
         else: e += 1
     return cnt
