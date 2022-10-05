@@ -6,10 +6,6 @@ def bfs(input_answer):
     result = 1
     visited = set()
     next_visit = deque()
-    # 문제에 1부터 방문한다고 되어있다... 나란쉨...
-    if input_answer[idx] != 1 : 
-        result = 0
-        return result
     visited.add(input_answer[idx])
     next_visit.append(input_answer[idx])
     idx += 1
@@ -40,4 +36,5 @@ if __name__ == "__main__":
     n = int(input())
     graph = make_graph()
     input_answer = list(map(int,input().split()))
-    print(bfs(input_answer))
+    if input_answer[0] != 1: print(0)
+    else: print(bfs(input_answer))
