@@ -25,6 +25,22 @@ def bfs(i,j,color):
                 cnt += 1
     rooms.append(cnt)
             
+def return_remove_one_wall_and_max_num_of_rooms():
+    visited = set()
+    remove_wall_max_room = 0
+    for i in range(n):
+        for j in range(m):
+            for k in range(4):
+                nx = i + d[k][0]
+                ny = j + d[k][1]
+                if not (0<=nx<n and 0<=ny<m): continue
+                if arr[i][j] != arr[nx][ny]:
+                    color1, color2 = arr[i][j], arr[nx][ny]
+                    if not (min(color1,color2), max(color1,color2)) in visited:
+                            visited.add((min(color1,color2), max(color1,color2)))
+                            remove_wall_max_room = max(remove_wall_max_room,rooms[color1-1] + rooms[color2-1])
+    return remove_wall_max_room
+
 if __name__ == "__main__":
     m, n = map(int,input().split())
     wall_arr = [list(map(int,input().split())) for _ in range(n)]
@@ -39,17 +55,5 @@ if __name__ == "__main__":
             if arr[i][j] == 0:
                 bfs(i,j,color)
                 color += 1
-    visited = set()
-    remove_wall_max_room = 0
-    for i in range(n):
-        for j in range(m):
-            for k in range(4):
-                nx = i + d[k][0]
-                ny = j + d[k][1]
-                if not (0<=nx<n and 0<=ny<m): continue
-                if arr[i][j] != arr[nx][ny]:
-                    color1, color2 = arr[i][j], arr[nx][ny]
-                    if not (min(color1,color2), max(color1,color2)) in visited:
-                            visited.add((min(color1,color2), max(color1,color2)))
-                            remove_wall_max_room = max(remove_wall_max_room,rooms[color1-1] + rooms[color2-1])
+    remove_wall_max_room = return_remove_one_wall_and_max_num_of_rooms()
     print(len(rooms),max(rooms),remove_wall_max_room,sep = '\n')
