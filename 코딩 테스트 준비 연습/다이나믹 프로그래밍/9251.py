@@ -10,8 +10,10 @@ def get_length_LCS(sub1:str, sub2:str) -> int:
     for s2 in sub2:
         cnt = 0
         for idx, s1 in enumerate(sub1,start = 1):
+            # 이전 위치까지의 최대값 저장
             if cnt < temp[idx]:
                 cnt = temp[idx]
+            # activate
             elif s1 == s2:
                 temp[idx] = cnt + 1
                     
