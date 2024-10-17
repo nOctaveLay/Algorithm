@@ -5,7 +5,5 @@ def solution(citations):
     for i in range(n):
         hIndex = n-i
         if citations[i] >= hIndex:
-            answer = hIndex
-            break
-    
+            return hIndex    
     return answer
