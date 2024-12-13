@@ -1,0 +1,5 @@
+n=int(input())
+words=set(input().rstrip() for _ in range(n))
+words = sorted(words)
+words = sorted(words,key=len)
+print(*words,sep="\n")
