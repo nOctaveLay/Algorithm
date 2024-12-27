@@ -2,6 +2,8 @@ import sys
 input=sys.stdin.readline
 t=int(input())
 
+# 파이썬에서 recursion limit은 1000으로 지정되어 있는데
+# 여기서 최대 recursion은 50*50 = 2500까지 일어날 수 있다.
 sys.setrecursionlimit(3000)
 for _ in range(t):
     m,n,k=map(int,input().split())
