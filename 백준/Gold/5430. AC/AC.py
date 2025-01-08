@@ -6,32 +6,19 @@ for _ in range(t):
     p=list(map(str,input().rstrip()))
     n=int(input())
     # 굳이 뒤집기를 해야할까?
-    arr_string = input().rstrip()
-    arr=deque(map(int,arr_string[1:-1].split(","))) if arr_string != '[]' else deque()
-    head=0
-    error=0
-    for command in p:
-        if command == 'R':
-            if head == 0:
-                head = -1
-            else:
-                head = 0
-        else:
-            if len(arr) == 0: 
-                print("error")
-                error = 1
-                break
-            else:
-                if head == 0: arr.popleft()
+    arr=deque(map(str,input().rstrip().strip('[]').split(','))) # [1,2,3,4] 를 list로 파싱하는 방법 
+
+    # 만약 D의 개수가 n보다 많다면 -> 뺄 수 없으니까 error를 뱉음
+    if n < p.count('D'):
+        print("error")
+    else:
+        inverse = 0
+        for command in p:
+            if command == 'R':
+                inverse = not inverse # inverse = 0 if inverse == 1 else 1
+            else: # command == 'D'
+                if not inverse: arr.popleft()
                 else: arr.pop()
-    if not error:
-        if head == -1:
-            print("[",end='')
-            for i in range(len(arr)-1,0,-1):
-                print(arr[i],end=',')
-            if len(arr) > 0: print(arr[0],end='')
-            print("]",sep='',end='\n')
-        else:
-            print("[",end='')
-            print(*arr,sep=',',end=']')
-            print()
+        if inverse:
+            arr=reversed(arr)
+        print(f"[{','.join(arr)}]")
