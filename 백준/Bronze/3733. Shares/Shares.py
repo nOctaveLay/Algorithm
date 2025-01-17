@@ -5,9 +5,10 @@
 N과 S는 공백으로 구분되고, 파일은 EOF를 만나면 중단한다.
 
 '''
+import sys;sys.stdin.readline
 while True:
     try:
-        n,s=map(int,input().split())
+        n,s=map(int,input().rstrip().split())
         x = s // (n+1)
         print(x)
     # EOF를 만나면 중단
