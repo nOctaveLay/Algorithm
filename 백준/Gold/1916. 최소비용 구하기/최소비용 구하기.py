@@ -8,14 +8,18 @@ m = int(input()) # 버스의 개수
 
 # list의 size는 56 dict의 size는 64
 # 나중에 blog로 왜 그런지 정리할 것.
-graph = [[] for _ in range(n+1)] 
+graph = [dict() for _ in range(n+1)] 
 
 # graph 관계 리스트 생성
 # graph[a].append([b, cost]) : a에서 b로 가는데 cost만큼의 비용이 든다.
-# a -> b로 가는 경로가 꼭 단일 경로가 아닐수도 있음.
+# a -> b로 가는 경로가 꼭 단일 경로가 아닐 수 있음.
 for _ in range(m):
     start_city, end_city, cost = map(int, input().split())
-    graph[start_city].append((end_city,cost))
+    # 최소 비용만 저장
+    if end_city in graph[start_city]:
+        graph[start_city][end_city] = min(graph[start_city][end_city], cost)
+    else:
+        graph[start_city][end_city] = cost
 
 # 출발점의 도시 번호와 도착점의 도시 번호
 start_city, end_city = map(int,input().split())
@@ -34,7 +38,7 @@ while heap:
     if costs[current_city] < current_cost:
         continue
 
-    for next_city, next_cost in graph[current_city]:
+    for next_city, next_cost in graph[current_city].items():
         sum_cost = current_cost + next_cost
 
         if sum_cost < costs[next_city]: 
