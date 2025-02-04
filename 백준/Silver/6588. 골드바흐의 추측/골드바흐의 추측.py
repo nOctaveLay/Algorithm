@@ -1,28 +1,34 @@
 import sys
-input=sys.stdin.readline
 
-# 소수 판정
-prime_table = [True] * 1000001
+input = sys.stdin.readline
 
-m = int(1000001**0.5)
+# 최대 값 설정
+MAX_N = 10**6
 
-# 소수 아닌 초기값
-prime_table[0] = False
-prime_table[1] = False
+# 홀수 소수 저장 (set 사용)
+prime_set = {2}  # 2는 예외적으로 포함
+sieve = [True] * ((MAX_N // 2) + 1)
 
-for i in range(2,m+1):
-  if prime_table[i]:
-    for k in range(i+i,1000001,i):
-      prime_table[k] = False
+# 에라토스테네스의 체
+for i in range(3, int(MAX_N**0.5) + 1, 2):
+    if sieve[i // 2]:  # 홀수만 저장됨 (2n+1 구조)
+        for j in range(i * i, MAX_N + 1, 2 * i):
+            sieve[j // 2] = False
+
+# 소수 집합 생성
+prime_set.update(2 * i + 1 for i in range(len(sieve)) if sieve[i])
 
 while True:
-  n = int(input())
-  if n==0: break
-  else:
-    conjecture = 0
-    for i in range(2,m+3):
-      if prime_table[i] and prime_table[n-i]:
-        print("%d = %d + %d"%(n,i,n-i))        
-        conjecture = 1
+    n = int(input().strip())
+    if n == 0:
         break
-    if conjecture == 0: print("Goldbach's conjecture is wrong.")
+
+    conjecture = False
+    for i in range(3, n // 2 + 1, 2):  # 홀수만 검사
+        if (n - i) in prime_set and i in prime_set:
+            print(f"{n} = {i} + {n-i}")
+            conjecture = True
+            break
+
+    if not conjecture:
+        print("Goldbach's conjecture is wrong.")
