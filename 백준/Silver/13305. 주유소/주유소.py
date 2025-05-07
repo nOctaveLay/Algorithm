@@ -23,16 +23,13 @@ for city_index in range(1, num_of_city):
 
         # 그간 달려온 금액을 정산한다.
         result_cost += sum(city_lengths[min_city_index:city_index]) * min_cost
-        # print(result_cost)
 
         # min_cost를 갱신해주고, 현재 위치까지 정산되었음을 알려주는 min_city_index를 업데이트 한다.
         min_cost = city_costs[city_index]
         min_city_index = city_index
-        # print("min_city_index",min_city_index)
 
 # 만약 min_city_index가 한 번 갱신된 후로 min_city가 나타나지 않았다면, 끝까지 갱신을 해주어야 한다.
 
-# print("final min_city_index", min_city_index)
 if min_city_index != num_of_city -1:
     result_cost += sum(city_lengths[min_city_index:]) * min_cost
 
