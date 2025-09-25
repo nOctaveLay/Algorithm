@@ -5,31 +5,35 @@ from collections import deque
 #입력
 cogwheels = list(deque(map(int,input().rstrip())) for _ in range(4))
 
-def check_left(c_i,r_d):
-    # A 톱니바퀴 6번과 B 톱니바퀴 2번 확인
-    if c_i - 1 < 0 : return
 
-    if cogwheels[c_i][6] != cogwheels[c_i-1][2]:
-        check_left(c_i-1,-r_d)
-        cogwheels[c_i-1].rotate(-r_d)
+def rotate_cog(cog_idx, direction):
+    # 회전 방향 정보 저장
+    rotations = [0] * 4
+    rotations[cog_idx] = direction
 
-def check_right(c_i,r_d):
-    # A 톱니바퀴 2번과 B 톱니바퀴 6번 확인
-    if c_i + 1 > 3 : return
+    # 왼쪽 톱니바퀴 회전
+    for i in range(cog_idx, 0, -1):
+        if cogwheels[i][6] != cogwheels[i-1][2]:
+            rotations[i-1] = -rotations[i]
+        else:
+            break
 
-    if cogwheels[c_i][2] != cogwheels[c_i+1][6]:
-        check_right(c_i+1,-r_d)
-        cogwheels[c_i+1].rotate(-r_d)
+    # 오른쪽 톱니바퀴 회전
+    for i in range(cog_idx, 3):
+        if cogwheels[i][2] != cogwheels[i+1][6]:
+            rotations[i+1] = -rotations[i]
+        else:
+            break
+    
+    for i in range(4):
+        if rotations[i] != 0:
+            cogwheels[i].rotate(rotations[i])
+
 
 n = int(input())
 for _ in range(n):
-    c_i, r_d = map(int,input().split())
-    c_i -= 1
-    check_left(c_i,r_d)
-    check_right(c_i,r_d)
-    cogwheels[c_i].rotate(r_d)
+    cog_idx, direction = map(int,input().split())
+    rotate_cog(cog_idx-1, direction)
 
-answer = 0
-for index, cogwheel in enumerate(cogwheels):
-    answer += cogwheel[0] * (2**index)
+answer = sum(cogwheels[i][0] * (2 ** i) for i in range(4))
 print(answer)
