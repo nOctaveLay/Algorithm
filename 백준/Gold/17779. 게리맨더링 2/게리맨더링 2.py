@@ -31,14 +31,6 @@ def cal_people(x,y,d1,d2):
     # 그 행에 5가 하나 밖에 없는 경우 제외.
     # 즉 범위는 row : x+1 ~ x + d1 + d2 -1 까지. col을 기준으로 탐색
 
-    check_five = False # 경계구역 안에 있는 동안 True로 바뀌고, 그렇지 않으면 False로 바뀜
-    for i in range(x+1, x+d1+d2):
-        for j in range(n):
-            if area_map[i][j] == 5 :
-                check_five = not check_five
-            if check_five:
-                area_map[i][j] = 5
-
     # 지역구 인원수 계산
     '''
     1번 선거구: 1 ≤ r < x+d1, 1 ≤ c ≤ y, 1번 경계선의 왼쪽 위
@@ -51,26 +43,29 @@ def cal_people(x,y,d1,d2):
     for i in range(n):
         total += sum(people_map[i])
 
+    # 1번 선거구
     for i in range(x+d1):
-        c = 0
-        while area_map[i][c] == 0 and c<=y:
-            people_per_area[0] += people_map[i][c]
-            c+=1
-    for i in range(x + d2+1):
-        c = n-1
-        while area_map[i][c] == 0 and c>y:
-            people_per_area[1] += people_map[i][c]
-            c-=1
+        for j in range(y+1):
+            if area_map[i][j] != 0: break
+            people_per_area[0] += people_map[i][j]
+
+    # 2번 선거구
+    for i in range(x+d2+1):
+        for j in range(n-1,y,-1):
+            if area_map[i][j] != 0: break
+            people_per_area[1] += people_map[i][j]
+
+    # 3번 선거구
     for i in range(x+d1, n):
-        c = 0
-        while area_map[i][c] == 0 and c < y-d1+d2:
-            people_per_area[2] += people_map[i][c]
-            c+=1
+        for j in range(y-d1+d2):
+            if area_map[i][j] != 0: break
+            people_per_area[2] += people_map[i][j]
+
+    # 4번 선거구
     for i in range(x + d2 +1, n):
-        c = n-1
-        while area_map[i][c] == 0 and c>=y-d1+d2:
-            people_per_area[3] += people_map[i][c]
-            c-=1
+        for j in range(n-1,y-d1+d2-1,-1):
+            if area_map[i][j] != 0: break
+            people_per_area[3] += people_map[i][j]
     people_per_area[4] = total-sum(people_per_area)
     return abs(max(people_per_area)-min(people_per_area))
 
