@@ -1,17 +1,19 @@
 import sys
-import math
 input=sys.stdin.readline
 
-t = int(input())
+MAXLENGTH = 1000001
+arr = ["EMPTY"] * MAXLENGTH
 
-for _ in range(t):
-    a = int(input())
-    if a % 2 == 1:
-        print('O',end='')
-    if (math.sqrt(a)).is_integer():
-        print('S',end='')
-    
-    if a%2 ==0 and not (math.sqrt(a)).is_integer():
-        print("EMPTY")
+for i in range(1,MAXLENGTH,2):
+    arr[i] = 'O'
+
+for i in range(1001):
+    square_i = i*i
+    if square_i % 2 == 0:
+        arr[square_i] = 'S'
     else:
-        print()
+        arr[square_i] = 'OS'
+
+
+for _ in range(int(input())):
+    print(arr[int(input())])
